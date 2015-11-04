@@ -1,0 +1,301 @@
+<?php $__env->startSection('content'); ?>
+
+<!--
+<div id="content">
+<div class="grid_container">
+
+<div class="grid_12">
+				<div class="widget_wrap">
+					<div class="widget_top">
+						<span class="h_icon blocks_images"></span>
+						<h6>Return / Replace</h6>
+					</div>
+					<div class="widget_content">
+
+					</div>
+						<div id="#tabs-1">
+		<div class="grid_container">
+			<div class="grid_12">
+				<div class="widget_wrap">
+					
+					<div class="widget_content">
+						<div class=" page_content">
+							<div class="invoice_container">
+
+<div class="clear"></div>
+
+							<span class="clear"></span>
+								<div class="grid_12 invoice_details">
+									<div class="invoice_tbl">
+										<table class="display data_tbl">
+					<thead>
+						<tr>
+							<th>
+								Invoice No
+							</th>
+							<th>
+							    Item Name
+							</th>
+							<th>
+								Serial No
+							</th>
+							<th>
+								Sales Date
+							</th>
+							<th>
+							    return Status
+							</th>
+							<th>
+							    Feedback
+							</th>
+							
+						</tr>
+					</thead>
+					<tbody>
+						<?php foreach($value as $items){?>
+					<tr class="gradeA">
+					    <td class="center">
+							<?php echo $items->ivnno;?>
+						</td>
+						<td class="center">
+							<?php echo $items->name;?>
+						</td>
+						<td class="center">
+							<?php echo $items->slno;?>
+						</td>
+						<td class="center">
+						  <?php $date=date_create($items->created_at); echo date_format($date,"Y-m-d");?>
+						</td>	
+						<td class="center" id='<?php echo e($items->id."_status"); ?>'>
+							<?php if($items->status == 1): ?>
+								<button style="background-color: green;" onclick="active_to_inactive('<?php echo e($items->id); ?>')">Active</button>
+							<?php elseif($items->status == 0): ?>
+								<button id='<?php echo e($items->id."_status_button"); ?>' style="background-color: red;" onclick="inactive_to_active('<?php echo e($items->id); ?>')">Inactive</button>	
+							<?php endif; ?>
+						</td>
+						<td class="center" id='<?php echo e($items->id."_feedback"); ?>'><?php echo $items->feedback;?></td>
+						
+						</tr>
+						<?php }?>
+		
+					</tbody>
+						
+				</table>
+								</div>
+								
+								</div>
+								<span class="clear"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<span class="clear"></span>
+	</div>
+				</div>
+</div></div></div>
+-->
+<?php 
+$userid=Auth::id();
+//echo $userid;
+foreach($profile as $com){
+$id=$com->id;
+}
+//echo $id;
+?>
+
+	<div id="content">
+	    		
+		<div class="grid_container">
+			<div class="grid_12">
+				<div class="widget_wrap">
+						
+					<div class="widget_top">   
+						<span class="h_icon list"></span>
+						<h6>Invoice for Replace Returns</h6>
+					
+							<form action="search" method="post">
+							    <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
+								<ul id="search_box">
+									<li>
+									<input name="inno" type="text" class="search_input" id="suggest1" placeholder="Enter Invoice no...">
+									</li>
+									<li>
+									<input name="" type="submit" value="" class="search_btn">
+									</li>
+								</ul>
+							</form>
+					</div>
+					<div class="widget_content">
+					
+						<div class=" page_content">
+					
+						
+							<div class="invoice_container">
+							<div class="header">
+
+<h1><?php if(!empty($com)){echo $com->name;} ?></h1><br><address>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<?php if(!empty($com)){echo $com->address;} ?><br>
+&nbsp;&nbsp;&nbsp;&nbsp;
+Tel:<?php if(!empty($com)){echo $com->telephone;} ?> ,Mobile: <?php if(!empty($com)){echo $com->mobile;} ?><br>
+
+E-mail:<?php if(!empty($com)){echo $com->email;} ?><br> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="<?php if(!empty($com)){echo $com->url;} ?> " target="_blank"> <?php if(!empty($com)){echo $com->url;} ?></a><br>
+
+</address>
+
+
+
+</div><br>
+<div class="clear"></div>
+							
+								<div class="invoice_action_bar">
+									
+									<div class="btn_30_light">
+										<a href="#" title="Print"><span class="icon printer_co"></span></a>
+									</div>
+									
+								</div>
+							
+								<span class="clear"></span>
+								<div class="grid_12 invoice_title">
+									<h5><u>INVOICE/BILL</u></h5>
+								</div>
+								<?php  
+								  // $sales = DB::table('sales')->where('name',$inno)->first();
+								  // if($sales!=NULL){
+								//	  $customers = DB::table('customers')->where('id',$sales->customerid)->get();
+								 //     print_r($customers); 
+								 //  }
+								 								 //foreach($value1 as $p){?>
+								<div class="grid_6 invoice_to">
+									<ul>
+										<li>
+										<strong><span>Name/Title:<?php //echo $p->cname;?></span></strong>
+										<span>Address:<?php //echo $p->preaddress;?></span>
+										<span>Mobile No:<?php //echo $p->phone;?></span>
+										</li>
+									</ul>
+								</div>
+								<div class="grid_6 invoice_from">
+									<ul>
+										<li>
+										<strong><span>Date:<?php  //echo $p->salesdate;?></span></strong>
+										<span>SI No:<?php //echo $p->id;?></span>
+										<span>Voucher No:<?php // echo $p->sname;?></span>
+										
+										</li>
+									</ul>
+								</div><?php // }?>
+								<span class="clear"></span>
+								<div class="grid_12 invoice_details">
+									<div class="invoice_tbl">
+										<table>
+										<thead>
+										<tr class=" gray_sai">
+											<th>
+												Item Name
+											</th>
+											<th>
+												Serial No
+											</th>
+											<th>
+												Return Status
+											</th>
+											<th>
+												Feedback
+											</th>
+										</tr>
+										</thead>
+										<tbody>
+										
+										<?php  foreach($value as $items){?>
+										<tr>
+											<td class="center"><?php  echo $items->name;?></td>
+											<td class="center"><?php  echo $items->slno;?></td>
+							<td class="center" id='<?php echo e($items->id."_status"); ?>'>											
+							<?php if($items->status == 1): ?>
+								<button style="background-color: green;" onclick="active_to_inactive('<?php echo e($items->id); ?>')">Active</button>
+							<?php elseif($items->status == 0): ?>
+								<button id='<?php echo e($items->id."_status_button"); ?>' style="background-color: red;" onclick="inactive_to_active('<?php echo e($items->id); ?>')">Inactive</button>	
+							<?php endif; ?>
+											
+							</td>
+							<td class="center" id='<?php echo e($items->id."_feedback"); ?>'><?php echo $items->feedback;?></td>
+										</tr>
+									    <?php 
+										}
+										?>
+									    
+										</tbody>
+										</table>
+									</div>
+									<p class="amount_word">
+										
+									</p>
+								
+								</div>
+								<span class="clear"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<span class="clear"></span>
+	</div>
+
+<script>
+
+function active_to_inactive(factory_item_id) {
+	    $_token = "<?php echo e(csrf_token()); ?>";
+            $.ajax({
+	            type: "POST",
+	            url: "search/return_item",
+	            data: {
+					_token: $_token,
+					factory_item_id: factory_item_id,
+					},
+	            success: function (response) {
+	            	if(response == 0){
+	            		alert("Not found this item.");
+	            	} else if(response == 1){
+	            		location.reload();
+	            	} else if(response == 2){
+	            		alert("Not available this item.");
+	            	}
+	           	}
+	        });
+}
+
+function inactive_to_active(factory_item_id){
+		$_token = "<?php echo e(csrf_token()); ?>";
+			$.ajax({
+	            type: "POST",
+	            url: "search/return_item_ina_to_act",
+	            data: {
+					_token: $_token,
+					factory_item_id: factory_item_id,
+					},
+	            success: function (response) {
+	            	if(response == 0){
+	            		alert("Not found this item.");
+	            	} else if(response == 1){
+	            		location.reload();
+	            	} else if(response == 2){
+	            		alert("Not found last inactive.");
+	            	}
+	           	}
+	        });
+}
+
+</script>
+
+<?php $__env->stopSection(); ?>
+
+
+<?php echo $__env->make('masterpage', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

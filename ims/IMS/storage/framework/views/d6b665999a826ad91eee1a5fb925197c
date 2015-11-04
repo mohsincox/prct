@@ -1,0 +1,1030 @@
+<?php $__env->startSection('content'); ?>
+
+
+	
+	<div class="widget_top">
+						<span class="h_icon list_image"></span>
+						<h6>Voucher Entry</h6>
+					</div>
+	<div id="tabs">
+  <ul>
+    <li><a href="#tabs-1">Bank Payment Voucher</a></li>
+    <li><a href="#tabs-2">Payment Voucher</a></li>
+    <li><a href="#tabs-3">Bank Receive Voucher</a></li>
+	<li><a href="#tabs-4">Receive Voucher</a></li>
+	<li><a href="#tabs-5">BKash</a></li>
+	<li><a href="#tabs-6">SAP</a></li>
+	<li><a href="#tabs-7">KCS</a></li>
+	<li><a href="#tabs-8">MBank</a></li>
+ 
+  </ul>
+  <div id="tabs-1">
+	<div class="widget_top">
+						
+						<h3>Bank Payment Voucher</h3>
+					</div>
+						<div class="widget_content" >
+						
+							<form action="voucher/register" method="post" onsubmit="return form_check('selected_bank_account', 'select_supplier_BPV');" class="form_container left_label">
+						<input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
+						<input type="hidden" name="userid" value="<?php echo e(Auth::id()); ?>">
+						<input type="hidden" name="vnno" value="<?php echo"v-".(rand()); ?>">
+						
+							<ul>
+						
+								<li>
+											<div class="form_grid_6">		
+			<label for="name" class="field_title">Bank Account<span class="req">*</span></label>
+				<div class="form_input">
+                  <select class="chzn-select" id="selected_bank_account" style=" width:100%" name="baccid" > 
+				  <?php 
+
+					echo "<option value='-1' Selected>Select</option>";
+					foreach($bankaccount as $gg){
+						if($gg->coastatus==1){
+					echo "<option value='".$gg->id."' >".$gg->bankname."(".$gg->branchname.")</option>";
+						}}?>
+                    </select>
+				</div>
+			  </div>
+								<div class="form_grid_6">
+									<label class="field_title">Amount:<span class="req">*</span></label>
+									<div class="form_input">
+										<input name="amount" id="bank_amount" oninput="amount_change(this.value,'select_supplier_BPV','supplier_amount')" type="text" tabindex="1" required  />
+									</div>
+									
+								</div>
+								<div class="clear"></div>
+								</li>
+								<li>
+								<div class="form_grid_6">
+									<label class="field_title">Accounts head:<span class="req">*</span></label>
+									<div class="form_input">
+										<select class="chzn-select" id="select_supplier_BPV" onchange="set_amount(this.value)" style=" width:100%" name="sid" required  > 
+				  <?php 
+
+					echo "<option value='-1' Selected>Select</option>";
+					foreach($s as $gg){
+						if($gg->coastatus==1){
+					echo "<option value='".$gg->id."' >".$gg->name."</option>";
+						}}?>
+                    </select>
+									</div>
+								</div>
+								<div class="form_grid_6">
+									<label class="field_title">Amount:<span class="req">*</span></label>
+									<div class="form_input">
+										<input name="supplieramount" onclick="c()" id="supplier_amount" type="text" tabindex="1" readonly />
+									</div>
+								</div>
+								<div class="clear"></div>
+								</li>
+							
+								<li>
+								<div class="form_grid_6">
+									<label class="field_title">Cheque No:</label>
+									<div class="form_input">
+										<input name="checkno" type="text" tabindex="1"   />
+									</div>
+								</div>
+								
+								<div class="form_grid_6">
+									<label class="field_title">Issue Date:<span class="req">*</span></label>
+									<div class="form_input">
+										<input name="vdate" type="text" tabindex="1" class="datepicker" required />
+									</div>
+								</div>
+								<div class="clear"></div>
+								</li>
+							
+								<li>
+								<div class="form_grid_1" >
+									<div class="form_input" >
+									    <button type="submit" class="btn_small btn_blue"><span>Save</span></button>
+									</div>
+								</div>
+								<div class="form_grid_11" >
+									
+								</div>
+								<div class="clear"></div>
+								</li>
+							</ul>
+							
+						</form>
+						
+					</div>
+				
+</div>
+  <div id="tabs-2">
+  	<div class="widget_top">
+						
+						<h3>Payment Voucher</h3>
+					</div>
+						<div class="widget_content" >
+						
+							<form action="voucher/registerp" method="post" onsubmit="return form_check('selected_cash', 'select_supplier_PV');" class="form_container left_label">
+						<input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
+						<input type="hidden" name="userid" value="<?php echo e(Auth::id()); ?>">
+						<input type="hidden" name="vnno" value="<?php echo"v-".(rand()); ?>">
+						
+							<ul>
+						
+								<li>
+											<div class="form_grid_6">		
+			<label for="name" class="field_title">Cash<span class="req">*</span></label>
+				<div class="form_input">
+				<?php $cash = DB::table('coa')->where('id',1)->get(); ?>
+                  <select class="chzn-select" id="selected_cash" style=" width:100%" name="baccid" required > 
+				  <?php 
+
+					echo "<option value='-1' Selected>Select</option>";
+					foreach($cash as $gg){
+					echo "<option value='".$gg->id."' >".$gg->name."</option>";
+					}?>
+                    </select>
+				</div>
+			  </div>
+								<div class="form_grid_6">
+									<label class="field_title">Amount: <span class="req">*</span></label>
+									<div class="form_input">
+										<input name="amount" id="bank_amountpv" oninput="amount_change(this.value,'select_supplier_PV','supplier_amountpv')"  type="text" tabindex="1"  required/>
+									</div>
+									
+								</div>
+								<div class="clear"></div>
+								</li>
+								<li>
+								<div class="form_grid_6">
+									<label class="field_title">Accounts head:<span class="req">*</span></label>
+									<div class="form_input">
+										<select class="chzn-select" id="select_supplier_PV" onchange="set_amountpv(this.value)" style=" width:100%" name="sid" required > 
+				  <?php 
+
+					echo "<option value='-1' Selected>Select</option>";
+					foreach($s as $gg){
+						if($gg->coastatus==1){
+					echo "<option value='".$gg->id."' >".$gg->name."</option>";
+					}}?>
+                    </select>
+									</div>
+								</div>
+								<div class="form_grid_6">
+									<label class="field_title">Amount:<span class="req">*</span></label>
+									<div class="form_input">
+										<input name="samount" id="supplier_amountpv" type="text" tabindex="1" readonly= />
+									</div>
+								</div>
+								<div class="clear"></div>
+								</li>
+							
+								<li>
+							
+								
+								<div class="form_grid_6">
+									<label class="field_title">Issue Date:<span class="req">*</span></label>
+									<div class="form_input">
+										<input name="vdate" type="text" tabindex="1" class="datepicker" required />
+									</div>
+								</div>
+								<div class="clear"></div>
+								</li>
+							
+								<li>
+								<div class="form_grid_1" >
+									<div class="form_input" >
+									    <button type="submit" class="btn_small btn_blue"><span>Save</span></button>
+									</div>
+								</div>
+								<div class="form_grid_11" >
+									
+								</div>
+								<div class="clear"></div>
+								</li>
+							</ul>
+						</form>
+					</div>
+  </div>
+  <div id="tabs-3">
+  	<div class="widget_top">
+						
+						<h3>Bank Receive Voucher</h3>
+					</div>
+						<div class="widget_content" >
+						
+							<form action="voucher/customers/register" method="post" onsubmit="return form_check('selected_bank_account_BRV', 'select_customer_BRV');"  class="form_container left_label">
+						<input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
+						<input type="hidden" name="userid" value="<?php echo e(Auth::id()); ?>">
+						<input type="hidden" name="vnno" value="<?php echo"v-".(rand()); ?>">
+						
+							<ul>
+						
+								<li>
+											<div class="form_grid_6">		
+			<label for="name" class="field_title">Bank Account<span class="req">*</span></label>
+				<div class="form_input">
+                  <select class="chzn-select" id="selected_bank_account_BRV" style=" width:100%" name="baccid" required > 
+				  <?php 
+
+					echo "<option value='-1' Selected>Select</option>";
+					foreach($bankaccount as $gg){
+						if($gg->coastatus==1){
+					echo "<option value='".$gg->id."' >".$gg->bankname."(".$gg->branchname.")</option>";
+					}}?>
+                    </select>
+				</div>
+			  </div>
+								<div class="form_grid_6">
+									<label class="field_title">Amount:<span class="req">*</span> </label>
+									<div class="form_input">
+										<input name="amount" id="bank_amountbrv" oninput="amount_change(this.value,'select_customer_BRV','supplier_amountbrv')" type="text" tabindex="1" required />
+									</div>
+									
+								</div>
+								<div class="clear"></div>
+								</li>
+								<li>
+								<div class="form_grid_6">
+									<label class="field_title">Customers:<span class="req">*</span></label>
+									<div class="form_input">
+										<select class="chzn-select" id='select_customer_BRV' onchange="set_amountbrv(this.value)" style=" width:100%" name="cid" required > 
+				  <?php 
+
+					echo "<option value='-1' Selected>Select</option>";
+					foreach($c as $gg){
+						if($gg->coastatus==1){
+					echo "<option value='".$gg->id."' >".$gg->name."</option>";
+						}}?>
+                    </select>
+									</div>
+								</div>
+								<div class="form_grid_6">
+									<label class="field_title">Amount:<span class="req">*</span></label>
+									<div class="form_input">
+										<input name="camount" id="supplier_amountbrv" type="text" tabindex="1" readonly />
+									</div>
+								</div>
+								<div class="clear"></div>
+								</li>
+								
+							
+								<li>
+								<div class="form_grid_6">
+									<label class="field_title">Cheque No:</label>
+									<div class="form_input">
+										<input name="checkno" type="text" tabindex="1" />
+									</div>
+								</div>
+								
+								<div class="form_grid_6">
+									<label class="field_title">Issue Date:<span class="req">*</span></label>
+									<div class="form_input">
+										<input name="vdate" type="text" tabindex="1" class="datepicker" required />
+									</div>
+								</div>
+								<div class="clear"></div>
+								</li>
+							
+								<li>
+								<div class="form_grid_1" >
+									<div class="form_input" >
+									    <button type="submit" class="btn_small btn_blue"><span>Save</span></button>
+									</div>
+								</div>
+								<div class="form_grid_11" >
+									
+								</div>
+								<div class="clear"></div>
+								</li>
+							</ul>
+						</form>
+					</div>
+     </div>
+  <div id="tabs-4">
+  <div class="widget_top">
+						
+						<h3>Receive Voucher</h3>
+					</div>
+						<div class="widget_content" >
+						
+						<form action="voucher/receive/register" method="post" onsubmit="return form_check('selected_cash_RV', 'select_customer_RV');"  class="form_container left_label">
+						<input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
+						<input type="hidden" name="userid" value="<?php echo e(Auth::id()); ?>">
+						<input type="hidden" name="vnno" value="<?php echo"v-".(rand()); ?>">
+							<ul>
+						
+								<li>
+											<div class="form_grid_6">		
+			<label for="name" class="field_title">Cash<span class="req">*</span></label>
+				<div class="form_input">
+				<?php $cash = DB::table('coa')->where('id',1)->get(); ?>
+                  <select class="chzn-select" id="selected_cash_RV" style=" width:100%" name="baccid" required > 
+				  <?php 
+
+					echo "<option value='-1' Selected>Select</option>";
+					foreach($cash as $gg){
+					echo "<option value='".$gg->id."' >".$gg->name."</option>";
+					}?>
+                    </select>
+				</div>
+			  </div>
+								<div class="form_grid_6">
+									<label class="field_title">Amount:<span class="req">*</span> </label>
+									<div class="form_input">
+										<input name="amount" id="bank_amountrv" oninput="amount_change(this.value,'select_customer_RV','supplier_amountrv')" type="text" tabindex="1" required />
+									</div>
+									
+								</div>
+								<div class="clear"></div>
+								</li>
+								<li>
+								<div class="form_grid_6">
+									<label class="field_title">Customers:<span class="req">*</span></label>
+									<div class="form_input">
+										<select class="chzn-select" id="select_customer_RV" onchange="set_amountrv(this.value)" style=" width:100%" name="cid" required > 
+				  <?php 
+
+					echo "<option value='-1' Selected>Select</option>";
+					foreach($c as $gg){
+						if($gg->coastatus==1){
+					echo "<option value='".$gg->id."' >".$gg->name."</option>";
+						}}?>
+                    </select>
+									</div>
+								</div>
+								<div class="form_grid_6">
+									<label class="field_title">Amount:<span class="req">*</span></label>
+									<div class="form_input">
+										<input name="camount" id="supplier_amountrv" type="text" tabindex="1" readonly />
+									</div>
+								</div>
+								<div class="clear"></div>
+								</li>
+							
+								<li>
+							
+								
+								<div class="form_grid_6">
+									<label class="field_title">Issue Date:<span class="req">*</span></label>
+									<div class="form_input">
+										<input name="vdate" type="text" tabindex="1" class="datepicker" required />
+									</div>
+								</div>
+								<div class="clear"></div>
+								</li>
+							
+								<li>
+								<div class="form_grid_1" >
+									<div class="form_input" >
+									    <button type="submit" class="btn_small btn_blue"><span>Save</span></button>
+									</div>
+								</div>
+								<div class="form_grid_11" >
+									
+								</div>
+								<div class="clear"></div>
+								</li>
+							</ul>
+						</form>
+					</div>
+     </div>
+<!--	 
+  <div id="tabs-5">
+  <div class="widget_top">
+						
+						<h3>Contra Voucher</h3>
+					</div>
+					<div class="widget_content" >
+					<form action="voucher/contra/register" method="post"  class="form_container left_label">
+						<input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
+						<input type="hidden" name="userid" value="1">
+						<input type="hidden" name="vnno" value="<?php //echo"v-".(rand()); ?>">
+					<ul>
+  <li>
+  
+		<div class="form_grid_6">			
+			<label for="name" class="field_title">Debit<span class="req">*</span></label>
+				<div class="form_input">
+				<?php //$cash = DB::table('coa')->where('id',1)->where('id',1)->get(); ?>
+                  <select class="chzn-select" style=" width:100%" name="baccid" > 
+				  <?php 
+
+					
+					//foreach($cash as $gg){
+						
+					//echo "<option value='".$gg->id."' >".$gg->name."</option>";
+					//}?>
+                    </select>
+				</div>
+			  </div>
+			  <div class="form_grid_6">
+									<label class="field_title">Amount: <span class="req">*</span></label>
+									<div class="form_input">
+										<input name="amount" id="bank_amountcv" type="text" tabindex="1" required />
+									</div>
+									
+								</div>
+								<div class="clear"></div>
+								</li>
+								<li>
+											<div class="form_grid_6">		
+			<label for="name" class="field_title">Credit<span class="req">*</span></label>
+				<div class="form_input">
+                  <select class="chzn-select" onchange="set_amountcv()" style=" width:100%" name="baccid" required > 
+				  <?php 
+
+					//echo "<option value='' Selected>Select</option>";
+					//foreach($bankaccount as $gg){
+						//if($gg->coastatus==1){
+					//echo "<option value='".$gg->id."' >".$gg->name."(".$gg->bankname.")"."</option>";
+					//	}}?>
+                    </select>
+				</div>
+			  </div>
+								<div class="form_grid_6">
+									<label class="field_title">Amount:<span class="req">*</span> </label>
+									<div class="form_input">
+										<input name="bamount" id="supplier_amountcv" type="text" tabindex="1" required />
+									</div>
+									
+								</div>
+								<div class="clear"></div>
+								</li>
+										<li>
+								<div class="form_grid_6">
+									<label class="field_title">Cheque No:</label>
+									<div class="form_input">
+										<input name="checkno" type="text" tabindex="1"  />
+									</div>
+								</div>
+								
+								<div class="form_grid_6">
+									<label class="field_title">Issue Date:<span class="req">*</span></label>
+									<div class="form_input">
+										<input name="vdate" type="text" tabindex="1" class="datepicker" required />
+									</div>
+								</div>
+								<div class="clear"></div>
+								</li>
+								<li>
+								<div class="form_grid_1" >
+									<div class="form_input" >
+									    <button type="submit" class="btn_small btn_blue"><span>Save</span></button>
+									</div>
+								</div>
+								<div class="form_grid_11" >
+									
+								</div>
+								<div class="clear"></div>
+								</li>
+								</ul>
+								</form>
+								</div>
+	</div>
+	-->
+	  <div id="tabs-5">
+  <div class="widget_top">
+						
+						<h3>BKash</h3>
+					</div>
+						<div class="widget_content" >
+						
+						<form action="voucher/bkash/register" method="post" onsubmit="return form_check('select_customer_B');"  class="form_container left_label">
+						<input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
+						<input type="hidden" name="userid" value="<?php echo e(Auth::id()); ?>">
+						<input type="hidden" name="vnno" value="<?php echo"v-".(rand()); ?>">
+							<ul>
+						
+								<li>
+											<div class="form_grid_6">		
+			<label for="name" class="field_title">BKash Account No:<span class="req">*</span></label>
+				<div class="form_input">
+					<input name="bkashno" id="" type="text" tabindex="1"  required />
+				</div>
+			  </div>
+								<div class="form_grid_6">
+											<label class="field_title">Amount: <span class="req">*</span></label>
+									<div class="form_input">
+										<input name="amount" id="bank_amountbv" oninput="amount_change(this.value,'select_customer_B','supplier_amountbv')" type="text" tabindex="1"  required/>
+									</div>
+									
+								</div>
+								<div class="clear"></div>
+								</li>
+								<li>
+								<div class="form_grid_6">
+									<label class="field_title">Customers:<span class="req">*</span></label>
+									<div class="form_input">
+										<select class="chzn-select" id="select_customer_B" onchange="set_amountbv(this.value)" style=" width:100%" name="cid" required> 
+				  <?php 
+
+					echo "<option value='-1' Selected>Select</option>";
+					foreach($c as $gg){
+						if($gg->coastatus==1){
+					echo "<option value='".$gg->id."' >".$gg->name."</option>";
+						}}?>
+                    </select>
+									</div>
+								</div>
+								<div class="form_grid_6">
+									<label class="field_title">Amount:<span class="req">*</span></label>
+									<div class="form_input">
+										<input name="camount" id="supplier_amountbv" type="text" tabindex="1" required readonly />
+									</div>
+								</div>
+								<div class="clear"></div>
+								</li>
+							
+								<li>
+							
+								
+								<div class="form_grid_6">
+									<label class="field_title">Issue Date:<span class="req">*</span></label>
+									<div class="form_input">
+										<input name="vdate" type="text" tabindex="1" class="datepicker" required/>
+									</div>
+								</div>
+								<div class="clear"></div>
+								</li>
+							
+								<li>
+								<div class="form_grid_1" >
+									<div class="form_input" >
+									    <button type="submit" class="btn_small btn_blue"><span>Save</span></button>
+									</div>
+								</div>
+								<div class="form_grid_11" >
+									
+								</div>
+								<div class="clear"></div>
+								</li>
+							</ul>
+						</form>
+					</div>
+ 
+ </div>
+ 	  <div id="tabs-6">
+  <div class="widget_top">
+						
+						<h3>SAP</h3>
+					</div>
+						<div class="widget_content" >
+						
+						<form action="voucher/sap/register" method="post" onsubmit="return form_check('select_customer_SAP');"  class="form_container left_label">
+						<input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
+						<input type="hidden" name="userid" value="<?php echo e(Auth::id()); ?>">
+						<input type="hidden" name="vnno" value="<?php echo"v-".(rand()); ?>">
+							<ul>
+						
+								<li>
+											<div class="form_grid_6">		
+			<label for="name" class="field_title">SAP Account No:<span class="req">*</span></label>
+				<div class="form_input">
+					<input name="sapno" id="" type="text" tabindex="1"  required/>
+				</div>
+			  </div>
+								<div class="form_grid_6">
+											<label class="field_title">Amount: <span class="req">*</span></label>
+									<div class="form_input">
+										<input name="amount" id="bank_amountsap" oninput="amount_change(this.value,'select_customer_SAP','customer_amount_cap')" type="text" tabindex="1" required />
+									</div>
+									
+								</div>
+								<div class="clear"></div>
+								</li>
+								<li>
+								<div class="form_grid_6">
+									<label class="field_title">Customers:<span class="req">*</span></label>
+									<div class="form_input">
+										<select class="chzn-select" id="select_customer_SAP" onchange="set_amountsap(this.value)" style=" width:100%" name="cid" required> 
+				                             <?php 
+
+											echo "<option value='-1' Selected>Select</option>";
+											foreach($c as $gg){
+												if($gg->coastatus==1){
+											echo "<option value='".$gg->id."' >".$gg->name."</option>";
+												}}?>  
+										</select>
+									</div>
+								</div>
+								<div class="form_grid_6">
+									<label class="field_title">Amount:<span class="req">*</span></label>
+									<div class="form_input">
+										<input name="camount" id="customer_amount_cap"
+										type="text" tabindex="1" required readonly />
+									</div>
+								</div>
+								<div class="clear"></div>
+								</li>
+							
+								<li>
+							
+								
+								<div class="form_grid_6">
+									<label class="field_title">Issue Date:<span class="req">*</span></label>
+									<div class="form_input">
+										<input name="vdate" type="text" tabindex="1" class="datepicker" required/>
+									</div>
+								</div>
+								<div class="clear"></div>
+								</li>
+							
+								<li>
+								<div class="form_grid_1" >
+									<div class="form_input" >
+									    <button type="submit" class="btn_small btn_blue"><span>Save</span></button>
+									</div>
+								</div>
+								<div class="form_grid_11" >
+									
+								</div>
+								<div class="clear"></div>
+								</li>
+							</ul>
+						</form>
+					</div>
+ 
+ </div>
+ 	  <div id="tabs-7">
+  <div class="widget_top">
+						
+						<h3>KCS</h3>
+					</div>
+						<div class="widget_content" >
+						
+						<form action="voucher/kcs/register" method="post" onsubmit="return form_check('select_customer_kcs');"  class="form_container left_label">
+						<input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
+						<input type="hidden" name="userid" value="<?php echo e(Auth::id()); ?>">
+						<input type="hidden" name="vnno" value="<?php echo"v-".(rand()); ?>">
+							<ul>
+						
+								<li>
+											<div class="form_grid_6">		
+			<label for="name" class="field_title">KCS Account No:<span class="req">*</span></label>
+				<div class="form_input">
+					<input name="kcsno" id="" type="text" tabindex="1"  required/>
+				</div>
+			  </div>
+								<div class="form_grid_6">
+											<label class="field_title">Amount: <span class="req">*</span></label>
+									<div class="form_input">
+										<input name="amount" id="bank_amount_kcs" oninput="amount_change(this.value,'select_customer_kcs','customer_amount_kcs')" type="text" tabindex="1"  required/>
+									</div>
+									
+								</div>
+								<div class="clear"></div>
+								</li>
+								<li>
+								<div class="form_grid_6">
+									<label class="field_title">Customers:<span class="req">*</span></label>
+									<div class="form_input">
+										<select class="chzn-select" id="select_customer_kcs" onchange="set_amountkcs(this.value)" style=" width:100%" name="cid" required> 
+				                             <?php 
+
+											echo "<option value='-1' Selected>Select</option>";
+											foreach($c as $gg){
+												if($gg->coastatus==1){
+											echo "<option value='".$gg->id."' >".$gg->name."</option>";
+												}}?>  
+										</select>
+									</div>
+								</div>
+								<div class="form_grid_6">
+									<label class="field_title">Amount:<span class="req">*</span></label>
+									<div class="form_input">
+										<input name="camount" id="customer_amount_kcs" type="text" tabindex="1"  required readonly />
+									</div>
+								</div>
+								<div class="clear"></div>
+								</li>
+							
+								<li>
+							
+								
+								<div class="form_grid_6">
+									<label class="field_title">Issue Date:<span class="req">*</span></label>
+									<div class="form_input">
+										<input name="vdate" type="text" tabindex="1" class="datepicker" required/>
+									</div>
+								</div>
+								<div class="clear"></div>
+								</li>
+							
+								<li>
+								<div class="form_grid_1" >
+									<div class="form_input" >
+									    <button type="submit" class="btn_small btn_blue"><span>Save</span></button>
+									</div>
+								</div>
+								<div class="form_grid_11" >
+									
+								</div>
+								<div class="clear"></div>
+								</li>
+							</ul>
+						</form>
+					</div>
+ 
+ </div>
+ 	  <div id="tabs-8">
+  <div class="widget_top">
+						
+						<h3>MBank</h3>
+					</div>
+						<div class="widget_content" >
+						
+						<form action="voucher/mbank/register" method="post" onsubmit="return form_check('select_customer_mbank');"  class="form_container left_label">
+						<input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
+						<input type="hidden" name="userid" value="<?php echo e(Auth::id()); ?>">
+						<input type="hidden" name="vnno" value="<?php echo"v-".(rand()); ?>">
+							<ul>
+						
+								<li>
+											<div class="form_grid_6">		
+			<label for="name" class="field_title">MBank Account No:<span class="req">*</span></label>
+				<div class="form_input">
+					<input name="mbankno" id="" type="text" tabindex="1"  required/>
+				</div>
+			  </div>
+								<div class="form_grid_6">
+											<label class="field_title">Amount: <span class="req">*</span></label>
+									<div class="form_input">
+										<input name="amount" id="bank_amount_mbank" oninput="amount_change(this.value,'select_customer_mbank','customer_amount_mbank')" type="text" tabindex="1"  />
+									</div>
+									
+								</div>
+								<div class="clear"></div>
+								</li>
+								<li>
+								<div class="form_grid_6">
+									<label class="field_title">Customers:<span class="req">*</span></label>
+									<div class="form_input">
+										<select class="chzn-select" id="select_customer_mbank" onchange="set_amountmbank(this.value)" style=" width:100%" name="cid" required> 
+				                              <?php 
+
+											echo "<option value='-1' Selected>Select</option>";
+											foreach($c as $gg){
+												if($gg->coastatus==1){
+											echo "<option value='".$gg->id."' >".$gg->name."</option>";
+												}}?>  
+                                        </select>
+									</div>
+								</div>
+								<div class="form_grid_6">
+									<label class="field_title">Amount:<span class="req">*</span></label>
+									<div class="form_input">
+										<input name="camount" id="customer_amount_mbank" type="text" tabindex="1" readonly required/>
+									</div>
+								</div>
+								<div class="clear"></div>
+								</li>
+							
+								<li>
+							
+								
+								<div class="form_grid_6">
+									<label class="field_title">Issue Date:<span class="req">*</span></label>
+									<div class="form_input">
+										<input name="vdate" type="text" tabindex="1" class="datepicker" required/>
+									</div>
+								</div>
+								<div class="clear"></div>
+								</li>
+							
+								<li>
+								<div class="form_grid_1" >
+									<div class="form_input" >
+									    <button type="submit" class="btn_small btn_blue"><span>Save</span></button>
+									</div>
+								</div>
+								<div class="form_grid_11" >
+									
+								</div>
+								<div class="clear"></div>
+								</li>
+							</ul>
+						</form>
+					</div>
+ 
+ </div>
+</div>	
+	  <script>
+  $(function() {
+    $( "#tabs" ).tabs();
+  });
+  </script>
+<div id="content">
+<div class="grid_container">
+<div class="grid_12">
+			<?php //print_r($voucher); die(); ?>		
+					
+						
+						<table class="display data_tbl_search">
+						<thead>
+						<tr>
+						
+
+	<div class="widget_top">
+						<span class="h_icon blocks_images"></span>
+						<h6>Voucher</h6>
+					</div>
+					<div class="widget_content">
+							<th>
+								ID
+							</th>
+							<th>
+								 Voucher No.
+							</th>
+							<th>
+								 Voucher Date
+							</th>
+							<th>
+								 Type
+							</th>
+							<th>
+								 Status
+							</th>
+						</tr>
+						</thead>
+						<tbody>
+						<?php foreach($voucher as $v){?>
+						<tr class="gradeC">
+							<td class="center">
+								 <?php echo $v->id;?>
+							</td>
+							<td class="center">
+								<?php echo $v->vnno;?>
+							</td>
+							<td class="center">
+								<?php echo $v->vdate;?>
+							</td>
+							<td class="center">
+							    <div class="btn_30_orange">
+									<a href="/IMS/voucher/pdf/<?php echo $v->id;?>/<?php echo $v->type;?>"><span class="icon doc_access_co"></span><span class="btn_link">Print</span></a>
+								</div>
+							</td>
+							<td class="center">
+							<div class="btn_30_dark">
+						    <?php if($v->vstatus == 1): ?>							
+								<button class="btn_small btn_blue" onclick="approved_to_unapproved('<?php echo e($v->id); ?>')">Approved</button>							
+							<?php elseif($v->vstatus == 0): ?>
+								<button  class="btn_small btn_orange"  onclick="unapproved_to_approved('<?php echo e($v->id); ?>')">Unapproved</button>	
+							<?php endif; ?>	
+						</div> 
+							</td>
+						</tr>
+						<?php }?>
+						
+						</tbody>
+						
+						</table>
+						</div>
+						
+						
+
+</div></div></div>
+<script>
+	function set_amount(selected_value){
+		if(selected_value != -1){
+			$('#supplier_amount').val($('#bank_amount').val());
+		} else {
+			$('#supplier_amount').val("");
+		}	
+	}
+	function c(){
+		if(selected_value != -1){
+			$('#supplier_amount').val($('#bank_amount').val());
+		} else {
+			$('#supplier_amount').val("");
+		}
+	}
+	function set_amountpv(selected_value){
+		if(selected_value != -1){
+			$('#supplier_amountpv').val($('#bank_amountpv').val());
+		} else {
+			$('#supplier_amountpv').val("");
+		}
+	}
+	function set_amountbrv(selected_value){
+		if(selected_value != -1){
+			$('#supplier_amountbrv').val($('#bank_amountbrv').val());
+		} else {
+			$('#supplier_amountbrv').val("");
+		}
+	}
+	function set_amountrv(selected_value){
+		if(selected_value != -1){
+			$('#supplier_amountrv').val($('#bank_amountrv').val());
+		} else {
+			$('#supplier_amountrv').val("");
+		}
+	}
+	function set_amountcv(selected_value){
+		if(selected_value != -1){
+			$('#supplier_amountcv').val($('#bank_amountcv').val());
+		} else {
+			$('#supplier_amountcv').val("");
+		}
+	}
+	function set_amountbv(selected_value){
+		if(selected_value != -1){
+			$('#supplier_amountbv').val($('#bank_amountbv').val());
+		} else {
+			$('#supplier_amountbv').val("");
+		}
+	}
+	function set_amountsap(selected_value){
+		if(selected_value != -1){
+			$('#customer_amount_cap').val($('#bank_amountsap').val());
+		} else {
+			$('#customer_amount_cap').val("");
+		}
+	}	
+	function set_amountkcs(selected_value){
+		if(selected_value != -1){
+			$('#customer_amount_kcs').val($('#bank_amount_kcs').val());
+		} else {
+			$('#customer_amount_kcs').val("");
+		}
+	}	
+	function set_amountmbank(selected_value){
+		if(selected_value != -1){
+			$('#customer_amount_mbank').val($('#bank_amount_mbank').val());
+		} else {
+			$('#customer_amount_mbank').val("");
+		}
+	}
+
+	function amount_change(input_debit, selected_id, debit_id){
+		if($('#'+selected_id+'').val() != -1){
+			$('#'+debit_id+'').val(input_debit);
+		}
+	}
+	
+	function approved_to_unapproved(sales_id) {	            			
+		    alert(sales_id);
+           			
+           $_token = "<?php echo e(csrf_token()); ?>";
+            $.ajax({
+	            type: "POST",
+	            url: "voucher/save_unapproved",
+	            data: {
+					_token: $_token,
+					sales_id: sales_id,
+					},
+	            success: function (response) {
+	            	if(response == 0){
+	            		alert("Not found this item.");
+	            	} else if(response == 1){
+	            		location.reload();
+	            	}
+	           	}
+	        });
+			
+            			
+}
+
+function unapproved_to_approved(sales_id) {	 
+             alert(sales_id);
+            			 
+            $_token = "<?php echo e(csrf_token()); ?>";
+            $.ajax({
+	            type: "POST",
+	            url: "voucher/save_approved",
+	            data: {
+					_token: $_token,
+					sales_id: sales_id,
+					},
+	            success: function (response) {
+	            	if(response == 0){
+	            		alert("Not found this item.");
+	            	} else if(response == 1){
+	            		location.reload();
+	            	}
+	           	}
+	        });	
+            			
+}
+
+function form_check(selected_value1, selected_value2){
+	if(selected_value1 !== undefined){
+		var selected_1 = $('#'+selected_value1+'').val();
+		if(selected_1 == -1){
+			alert('Please select all input field.');
+			return false;
+		}
+	}
+	if(selected_value2 !== undefined){
+		var selected_2 = $('#'+selected_value2+'').val();
+		if(selected_2 == -1){
+			alert('Please select all input field.');
+			return false;
+		}
+	}
+}
+	
+</script>
+	
+<?php $__env->stopSection(); ?>
+
+
+<?php echo $__env->make('masterpage', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

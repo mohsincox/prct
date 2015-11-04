@@ -1,0 +1,55 @@
+@extends('masterpage')
+
+@section('content')
+<div class="col-lg-9 col-md-12">
+					
+	<div class="row">
+		<div class="col-md-12">
+			<h3 class="page-header"><i class="fa fa-table"></i>Add Item Group</h3>
+		</div>
+	</div>
+			
+	<div class="row">
+		<div class="panel panel-default">
+		<?php $userid=1;?>
+			<div class="panel-heading">Create New Item
+			</div><br>
+		
+			<form class="form-horizontal" action="register" method="post">
+					<input type="hidden" name="_token" value="{{ csrf_token() }}">
+				
+				
+				  <div class="form-group">
+			<label for="name" class="col-sm-2 control-label">Item Group Name</label>
+				<div class="col-sm-6">
+				 <?php $acc=DB::table('itemsgroup')->get(); ?>  
+                  <select class="form-control" name="itemgroupid">   
+				  <?php 
+					foreach($acc as $items){
+					echo "<option value=".$items->id.">".$items->name."</option>";
+				  }?>
+                    </select>
+				</div>
+			  </div>
+			  
+			  <div class="form-group">
+					<label for="name" class="col-sm-2 control-label">Item Subgroup Name</label>
+				<div class="col-sm-6">
+					<input type="text" class="form-control" id="name" placeholder="Name" name="name" >
+				</div>
+				</div>
+				
+ 
+			<input type="hidden" class="form-control" id="" placeholder="User ID" name="userid" value="<?php echo $userid;?>">
+    
+    
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-success">Save</button>
+    </div>
+  </div>
+</form>
+		</div>
+	</div>
+</div>
+@endsection
